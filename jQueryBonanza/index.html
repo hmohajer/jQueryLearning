@@ -38,31 +38,5 @@
     </div> <!-- End of container -->
     <script src="./main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-    <script>
-$(document).ready(() => {
-    $("#fadeOut").on("click", () => {
-        $("#paraFade").fadeToggle(500, () =>{
-            $("#fadeOut").addClass("w-50");
-        }); //fadeOut(1000);
-    });
-    $("#fadeOut").on("mouseenter" , function(){
-        $("#fadeOut").removeClass("w-50");
-    });
-    $("#append").on("click", () => {
-        $("#listAppend").append("<li class='list-group-item'>"+$("#nameInput").val()+" : "+$("#jobInput").val()+"</li>");
-    });
-    $("#showHide").on("click", () =>{
-        $("#nameInput").fadeToggle(400);
-        $("#jobInput").fadeToggle(400);
-    });
-    $("#changeColor").on("mousemove", () =>{
-        $("#paraColor").css("color", "#"+Math.floor(Math.random() * 1000)+111)
-        $("#paraColor").css("background", "#"+Math.floor(Math.random() * 1000)+111)
-    });
-
-
-    // $("#")
-});
-    </script>
 </body>
 </html>
