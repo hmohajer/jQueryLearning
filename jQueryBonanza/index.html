@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Bonanza</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <style>
+        p{
+            font-size: 1.3rem;
+        }
+    </style>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="border-bottom text-center m-4 p-3">
+            <button id="fadeOut" class="btn btn-dark">Fade Out</button>
+            <p id="paraFade" class="p-3">the text should fade out</p>
+        </div>
+        <div class="border-bottom text-center m-4 p-3">
+            <input type="text" id="nameInput" placeholder="Enter your Name">
+            <input type="text" id="jobInput" placeholder="Enter your job">
+            <br>
+
+            <button id="append" class="btn btn-dark">Append</button>
+            <button id="showHide" class="btn btn-dark">Show / Hide </button>
+            <p  class="p-3">Append some text here</p>
+            <ul id="listAppend" class="list-group list-group-flush"></ul>
+        </div>
+        <div class="border-bottom text-center m-4 p-3">
+            <button id="changeColor" class="btn btn-dark">Change Color</button>
+            <p id="paraColor" class="p-3">change the text color to red</p>
+        </div>
+    </div> <!-- End of container -->
+    <script src="./main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script>
+$(document).ready(() => {
+    $("#fadeOut").on("click", () => {
+        $("#paraFade").fadeToggle(500, () =>{
+            $("#fadeOut").addClass("w-50");
+        }); //fadeOut(1000);
+    });
+    $("#fadeOut").on("mouseenter" , function(){
+        $("#fadeOut").removeClass("w-50");
+    });
+    $("#append").on("click", () => {
+        $("#listAppend").append("<li class='list-group-item'>"+$("#nameInput").val()+" : "+$("#jobInput").val()+"</li>");
+    });
+    $("#showHide").on("click", () =>{
+        $("#nameInput").fadeToggle(400);
+        $("#jobInput").fadeToggle(400);
+    });
+    $("#changeColor").on("mousemove", () =>{
+        $("#paraColor").css("color", "#"+Math.floor(Math.random() * 1000)+111)
+        $("#paraColor").css("background", "#"+Math.floor(Math.random() * 1000)+111)
+    });
+
+
+    // $("#")
+});
+    </script>
+</body>
+</html>
