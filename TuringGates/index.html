@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 80%;
+            margin:auto;
+            max-width: 1000px;
+        }
+        img{
+            display: block;
+            margin: 1px 0 1px 0;
+            width: 100%;
+        }
+
+    </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <img src="./images/1a.jpg" alt="1" alt-pic="./images/1b.jpg">
+        <img src="./images/2a.jpg" alt="2" alt-pic="./images/2b.jpg">
+        <img src="./images/3a.jpg" alt="3" alt-pic="./images/3b.jpg">
+    </div>
+    <script>
+        $(document).ready(() =>{
+            $("img").on("click", function() {
+                let temp = $(this).attr("src");
+                $(this).attr("src", $(this).attr("alt-pic"));
+                $(this).attr("alt-pic",temp);
+            });
+
+        });
+    </script>
+</body>
+</html>
