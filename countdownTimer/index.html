@@ -8,21 +8,41 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <title>Countdown Timer</title>
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <style>
         * {
             /* border: 1px solid #000; */
         }
 
         .textTimer {
-            font-size: 10em;
+            font-size: 8em;
             color: #444;
         }
-        .timeInput{
+
+        .timeInput {
             width: 1.6rem;
         }
-        .bg{
+
+        .bg {
             background: #ddd;
+        }
+
+        #editTime {
+            color: #0d6efd;
+        }
+
+        .btnTimer {
+            height: 6rem;
+            width: 6rem;
+            border: 1px solid;
+            vertical-align: middle;
+            border-radius: 50%;
+            margin: 1%;
         }
     </style>
 </head>
@@ -35,47 +55,41 @@
             <span class="textTimer" id="minText">00</span>
             <span class="textTimer">:</span>
             <span class="textTimer" id="secText">00</span>
-            <div class="btnTimerStart btn align-middle">Start</div>
-            <div class="btnTimerReset">Reset</div>
+            <div class="btnTimer btnTimerStart btn d-flex justify-content-center align-items-center btn-outline-secondary"
+                id="startTimer">Start</div>
+            <div class="btnTimer btnTimerReset btn d-flex justify-content-center align-items-center btn-primary"
+                id="resetTimer">Reset</div>
         </div>
-        <div class="bg ps-4">
-            <span id="timeSaved">00:00:00</span>
+        <div class="bg alert-danger" id="msg"></div>
+        <div class="bg ps-5">
+            <span id="timeSaved">Time: 0:00:00</span>
             <span id="timeInputForm">
-                <input type="text" id="hourInput" class="timeInput" value="00">
+                <input type="text" id="hourInput" class="timeInput" value="0">
                 <span>:</span>
                 <input type="text" id="minInput" class="timeInput" value="00">
                 <span>:</span>
                 <input type="text" id="secInput" class="timeInput" value="00">
+                <button id="timeInputSave" class="btn btn-outline-primary"><i class="fas fa-plus"></i>Add</button>
+                <!-- <button>cancel</button> -->
             </span>
-            <span id="editTime" class="btn"> khodkar Edit </span>
+            <span id="editTime" class="btn"> <i class="fas fa-pen"></i> Edit </span>
+            <audio id="finishAudio">
+
+                <!-- <source src="http://www.soundjay.com/misc/sounds/bell-ringing-01.mp3" type="audio/mpeg"> -->
+                <source src="./sound/ding.ogg" type="audio/ogg">
+                <source src="./sound/ding.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
         </div>
-
-
-
         <br>
         <br>
-        <br>
-        <br>
-        <footer class="text-center">Copyright &copy; Hassan</footer>
+        <!-- <footer class="text-center">Copyright &copy; Hassan</footer> -->
     </div>
     <script src="./counter.js"></script>
     <script>
-        $(document).ready(function () {
-            hourInit = 1;
-            minInit = 2;
-            secInit = 5;
-            // check();
 
-            $("#timeInputForm").hide();
-            $("#editTime").on("click",function(){
-                // $(".para1").hide();
-                $("#timeInputForm").toggle();
-                $("#timeSaved").toggle();
-
-            });
-
-        });
     </script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script> -->
 </body>
 
 </html>

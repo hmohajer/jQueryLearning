@@ -44,81 +44,134 @@
 
 
 // $(document).ready(function () {
-    
-    
-    
-    
-let hourInit;
-let minInit;
-let secInit ;
 
-// minSec => each minute have 60 seconds and each hour have 60 minutes (0 to 59 = 60)
-const minSec = 3;
 
-function showTime() {
-    if (secInit < 10) {
-        $("#secText").text("0" + secInit);
-    } else {
-        $("#secText").text(secInit);
+$(document).ready(function () {
+
+    let hourInit;
+    let minInit;
+    let secInit;
+    let bell = true;
+
+    // MINSEC => each minute have 60 seconds and each hour have 60 minutes (0 to 59 = 60)
+    const MINSEC = 59;
+
+    function showTime() {
+        if (secInit < 10) {
+            $("#secText").text("0" + secInit);
+        } else {
+            $("#secText").text(secInit);
+        }
+        if (minInit < 10) {
+            $("#minText").text("0" + minInit);
+        } else {
+            $("#minText").text(minInit);
+        }
+        if (hourInit < 10) {
+            $("#hourText").text("0" + hourInit);
+        } else {
+            $("#hourText").text(hourInit);
+        }
     }
-    if (minInit < 10) {
-        $("#minText").text("0" + minInit);
-    } else {
-        $("#minText").text(minInit);
+    // function timerControler() {
+    const timerControler = function () {
+        //     //if sec > 0 then count seconds from initial
+        //     //else if min > 0 then min-- then count sec from 60 (i =60 cal showSec)
+        //     //else if hour > 0 then hour-- then min=59 then count sec from 60
+        if (secInit > 0) {
+            secInit -= 1;
+            showTime();
+        } else if (minInit > 0) { //&& secInit <= 0
+            minInit--;
+            secInit = MINSEC;
+            showTime();
+        } else if (hourInit > 0) {
+            hourInit--
+            minInit = MINSEC;
+            secInit = MINSEC;
+            showTime();
+        }
     }
-    if (hourInit < 10) {
-        $("#hourText").text("0" + hourInit);
-    } else {
-        $("#hourText").text(hourInit);
+    function clear() {
+
     }
-}
-// function timerControler() {
-const timerControler = function () {
-    //     //if sec > 0 then count seconds from initial
-    //     //else if min > 0 then min-- then count sec from 60 (i =60 cal showSec)
-    //     //else if hour > 0 then hour-- then min=59 then count sec from 60
-    if (secInit > 0) {
-        secInit -= 1;
-        showTime()
-    } else if (minInit > 0) { //&& secInit <= 0
-        minInit--;
-        secInit = minSec;
-        showTime()
-    } else if (hourInit > 0) {
-        hourInit--
-        minInit = minSec;
-        secInit = minSec;
-        showTime()
+    function errorCheck(val, upTo) {
+        if (val < 0 || val >= upTo) {
+            $("#msg").html("Please put a number between 0 to " + upTo + "(inclusive)");
+            setTimeout(() => $("#msg").html(""), 7000);
+        }
     }
-}
-// function tNow() {
-//     let seconds = new Date().getTime() / 1000;
-//     seconds = Math.floor(seconds);
-//     return seconds;
-// }
-var check = function () {
-    timerControler();
-    if (hourInit > 0 || minInit > 0 || secInit > 0) {
-        setTimeout(check, 1000); // check again in a second
-    } else {
-        //ye seda pakhsh kon
-        console.log("bling bling bling bling!");
-    }
-    // let beginTime = tNow();
-    // let diff = 50;  //ino bayad az voroodi hesab konam
-    // // while (hourInit > 0 || minInit > 0 || secInit > 0) {
-    // while (tNow() - beginTime < diff) {
-    //     if (tNow() - beginTime >= 1) {
-    //         timerControler();
-    //         // setTimeout(timerControler, 1000); // check again in a second
-    //         // console.log("be inja resid?");
-    //     }
+    // function tNow() {
+    //     let seconds = new Date().getTime() / 1000;
+    //     seconds = Math.floor(seconds);
+    //     return seconds;
     // }
-    // //ye seda pakhsh kon
-}
+    var check = function () {
+        timerControler();
+        if (hourInit > 0 || minInit > 0 || secInit > 0) {
+            setTimeout(check, 1000); // check again in a second
+        } else if (bell) {
+            //ye seda pakhsh kon
+            console.log("bling bling bling bling!");
+            $("#finishAudio")[0].play();
+
+        }
+        // let beginTime = tNow();
+        // let diff = 50;  //ino bayad az voroodi hesab konam
+        // // while (hourInit > 0 || minInit > 0 || secInit > 0) {
+        // while (tNow() - beginTime < diff) {
+        //     if (tNow() - beginTime >= 1) {
+        //         timerControler();
+        //         // setTimeout(timerControler, 1000); // check again in a second
+        //         // console.log("be inja resid?");
+        //     }
+        // }
+        // //ye seda pakhsh kon
+    }
     // check();
 
+    $("#timeInputSave").on("click", function () {
+        hourInit = parseInt($("#hourInput").val());
+        minInit = parseInt($("#minInput").val());
+        secInit = parseInt($("#secInput").val());
+        $("#timeSaved").text("Time: (" + hourInit + ":" + minInit + ":" + secInit + ")");
+        $("#timeInputForm").toggle();
+        $("#timeSaved").toggle();
+        $("#editTime").toggle();
+    });
+    $("#hourInput").on("change paste keyup", function () {
+        errorCheck(parseInt($("#hourInput").val()), 2);
+    });
+    $("#minInput").on("change paste keyup", function () {
+        errorCheck(parseInt($("#minInput").val()), 59);
+    });
+    $("#secInput").on("change paste keyup", function () {
+        errorCheck(parseInt($("#secInput").val()), 59);
+    });
+    $("#startTimer").on("click", function () {
+        bell = true;
+        check();
+    });
+    $("#resetTimer").on("click", function () {
+        hourInit = 0;
+        minInit = 0;
+        secInit = 0;
+        bell = false;
+        showTime();
+        $("#timeSaved").text("Time: (0:00:00)");
+        $("#timeInputForm").hide();
+        $("#timeSaved").show();
+        $("#editTime").show();
+        $("#msg").html("");
 
+    });
+    $("#timeInputForm").hide();
+    $("#editTime").on("click", function () {
+        // $(".para1").hide();
+        $("#timeInputForm").toggle();
+        $("#timeSaved").toggle();
+        $("#editTime").toggle();
+    });
 
-
+});
 // });
